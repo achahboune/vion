@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up | VION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
+  <script>
+    BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px 20px;
+      background: #2b6cb0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-box">
+    <h2>🚀 Start Using VION</h2>
+    <form id="signupForm">
+      <input type="email" name="email" placeholder="Your email" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = this.email.value.trim();
+      if (!email) return;
+
+      const res = await fetch("/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      document.getElementById("message").textContent = res.ok
+        ? "✅ You're signed up!"
+        : "❌ Error. Please try again.";
+    });
+  </script>
+</body>
+</html>
