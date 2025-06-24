@@ -9,10 +9,35 @@
       font-family: 'Segoe UI', sans-serif;
       background: #f5f7fa;
       margin: 0;
-      display: flex; justify-content: center; align-items: center;
-      height: 100vh;
+      padding: 0;
     }
+
+    nav {
+      background: #2b6cb0;
+      padding: 10px 20px;
+      text-align: right;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 60px);
+    }
+
+    .box {
       background: #fff;
       padding: 40px 30px;
       border-radius: 12px;
@@ -21,8 +46,10 @@
       width: 100%;
       max-width: 460px;
     }
+
     h1 { font-size: 2rem; color: #2b6cb0; margin-bottom: 10px; }
     p.subtitle { color: #444; margin-bottom: 25px; }
+
     input[type="email"] {
       width: 100%;
       padding: 12px;
@@ -30,6 +57,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
     }
+
     button {
       margin-top: 15px;
       padding: 12px;
@@ -40,19 +68,32 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     button:hover { background: #234e8a; }
   </style>
 </head>
 <body>
+
+  <!-- 🔗 MENU -->
+  <nav>
+    <a href="/demo">Demo</a>
+    <a href="/signup">Signup</a>
+    <a href="/privacy.html">Privacy</a>
+  </nav>
+
+  <!-- 💡 MAIN CONTENT -->
   <div class="container">
-    <h1>Automate Your Client Onboarding</h1>
-    <p class="subtitle">Get the free Notion template + guide now</p>
-    <form id="leadForm">
-      <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">Send me the guide</button>
-    </form>
+    <div class="box">
+      <h1>Automate Your Client Onboarding</h1>
+      <p class="subtitle">Get the free Notion template + guide now</p>
+      <form id="leadForm">
+        <input type="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Send me the guide</button>
+      </form>
+    </div>
   </div>
 
+  <!-- 📩 SCRIPT -->
   <script>
     document.getElementById("leadForm").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -77,11 +118,12 @@
       }
     });
   </script>
-<!-- Brevo Tracking Script (exemple) -->
-<script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
-<script>
-  BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
-</script>
+
+  <!-- 🧠 Brevo Tracking -->
+  <script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
+  <script>
+    BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
+  </script>
 
 </body>
 </html>
