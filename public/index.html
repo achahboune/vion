@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automate Your Client Onboarding | VION</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      text-align: center;
+      width: 100%;
+      max-width: 460px;
+    }
+    h1 { font-size: 2rem; color: #2b6cb0; margin-bottom: 10px; }
+    p.subtitle { color: #444; margin-bottom: 25px; }
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      background: #2b6cb0;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #234e8a; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Automate Your Client Onboarding</h1>
+    <p class="subtitle">Get the free Notion template + guide now</p>
+    <form id="leadForm">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">Send me the guide</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("leadForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = this.email.value.trim();
+      if (!email) return alert("Enter a valid email.");
+
+      const res = await fetch("/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ Guide sent! Check your inbox.");
+        this.reset();
+      } else {
+        alert("❌ Error. Try again.");
+        console.error(data.error);
+      }
+    });
+  </script>
+</body>
+</html>

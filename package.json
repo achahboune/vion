@@ -1,0 +1,18 @@
+{
+  "name": "vion-backend",
+  "version": "1.0.0",
+  "description": "Client Onboarding Automation backend for VION",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["onboarding", "automation", "freelancers", "saas", "email-marketing"],
+  "author": "Alaa",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7",
+    "dotenv": "^16.3.1"
+  }
+}
