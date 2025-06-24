@@ -47,6 +47,13 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+app.get('/demo', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'demo.html'));
+});
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
