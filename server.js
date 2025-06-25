@@ -39,7 +39,9 @@ app.post("/subscribe", async (req, res) => {
     res.json({ message: "✅ Email added to Brevo list." });
   } catch (error) {
     console.error("Internal server error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    const errorData = await response.json();
+    console.error("Brevo API error:", errorData);
+     return res.status(500).json({ error: errorData });
   }
 });
 
