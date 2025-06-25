@@ -70,6 +70,12 @@
     }
 
     button:hover { background: #234e8a; }
+
+    .unsubscribe {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -86,6 +92,12 @@
     <div class="box">
       <h1>Automate Your Client Onboarding</h1>
       <p class="subtitle">Get the free Notion template + guide now</p>
+
+      <form id="leadForm">
+        <input type="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Send me the guide</button>
+        <p class="unsubscribe">Don't want emails? <a href="{{ unsubscribe }}">Unsubscribe here</a>.</p>
+      </form>
     </div>
   </div>
 
@@ -98,9 +110,7 @@
 
       const res = await fetch("/subscribe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
@@ -120,9 +130,5 @@
   <script>
     BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
   </script>
-<script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
-<script>
-  BrevoTracking.init('YOUR_BREVO_TRACKING_ID'); // remplace par ton vrai ID
-</script>
 </body>
 </html>
