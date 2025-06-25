@@ -2,80 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sign Up | VION</title>
+  <title>Signup - VION</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
   <script>
-    BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
+    BrevoTracking.init('YOUR_BREVO_TRACKING_ID'); // remplace par ton ID
   </script>
   <style>
     body {
-      font-family: sans-serif;
-      background: #eef2f7;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
     }
-    .signup-box {
+    .container {
       background: white;
-      padding: 30px;
+      padding: 40px;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 420px;
       width: 100%;
       text-align: center;
     }
-    input[type="email"] {
+    input, button {
       width: 100%;
       padding: 12px;
-      margin-bottom: 15px;
+      margin: 10px 0;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
     button {
-      padding: 12px 20px;
       background: #2b6cb0;
       color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
       font-weight: bold;
+      border: none;
+    }
+    button:hover {
+      background: #234e8a;
     }
   </style>
 </head>
 <body>
-  <div class="signup-box">
-    <h2>🚀 Start Using VION</h2>
+  <div class="container">
+    <h2>🚀 Create Your VION Account</h2>
     <form id="signupForm">
+      <input type="text" name="name" placeholder="Your name" required />
       <input type="email" name="email" placeholder="Your email" required />
-      <button type="submit">Sign Up</button>
+      <button type="submit">Create My Account</button>
     </form>
-    <p id="message"></p>
   </div>
 
   <script>
-    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    document.getElementById("signupForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+      const name = this.name.value.trim();
       const email = this.email.value.trim();
-      if (!email) return;
-
-      const res = await fetch("/subscribe", {
+      if (!email) return alert("Enter a valid email.");
+      const res = await fetch("/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ name, email })
       });
-
       const data = await res.json();
-      document.getElementById("message").textContent = res.ok
-        ? "✅ You're signed up!"
-        : "❌ Error. Please try again.";
+      if (res.ok) {
+        alert("✅ Account request received!");
+        this.reset();
+      } else {
+        alert("❌ Error, try again.");
+        console.error(data.error);
+      }
     });
   </script>
-<script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
-<script>
-  BrevoTracking.init('YOUR_BREVO_TRACKING_ID'); // remplace par ton vrai ID
-</script>
 </body>
 </html>
