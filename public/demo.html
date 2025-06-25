@@ -2,55 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VION Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="text/javascript" src="https://tracking.brevo.com/tracking.js"></script>
+  <script>
+    BrevoTracking.init('j56rppyd08dfa7mnsp3d66bs');
+  </script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 50px;
     }
-    h1 {
-      color: #2b6cb0;
+    .container {
+      max-width: 720px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    iframe {
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 420px;
-      height: 750px;
-    }
-    a.cta {
+    .button {
       display: inline-block;
-      margin-top: 20px;
       padding: 12px 24px;
       background: #2b6cb0;
-      color: #fff;
-      border-radius: 8px;
+      color: white;
       text-decoration: none;
+      border-radius: 8px;
       font-weight: bold;
-    }
-    a.cta:hover {
-      background: #234e8a;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
-  <h1>🎥 VION Demo</h1>
-  <iframe 
-    src="https://youtube.com/shorts/LMulf4xyX5U?si=UbIQ0xiZhwxWR5sF"
-    title="VION Demo"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-
-  <a class="cta" href="/signup">🚀 Try VION Now</a>
-
+  <div class="container">
+    <h1>🎬 Discover How VION Works</h1>
+    <p>Click the button below to watch the demo video on YouTube:</p>
+    <a class="button" href="https://www.youtube.com/watch?v=LMulf4xyX5U" target="_blank">▶️ Watch the Demo</a>
+    <br /><br />
+    <a class="button" href="/signup">🚀 Try Now</a>
+  </div>
 </body>
 </html>
