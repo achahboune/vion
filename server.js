@@ -11,7 +11,7 @@ app.use(express.json());
 // Servir fichiers statiques front
 app.use(express.static(path.join(__dirname, "public")));
 
-// POST /subscribe → Pour lead magnet
+// POST /subscribe
 app.post("/subscribe", async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: "Email required" });
@@ -39,16 +39,13 @@ app.post("/subscribe", async (req, res) => {
     res.json({ message: "✅ Email added to Brevo list." });
   } catch (error) {
     console.error("Internal server error:", error);
-    const errorData = await response.json();
-    console.error("Brevo API error:", errorData);
-     return res.status(500).json({ error: errorData });
+    res.status(500).json({ error: "Internal server error" });
   }
 });
-
-// ✅ NOUVEAU — POST /signup → pour les utilisateurs créant un compte
+// POST /signup
 app.post("/signup", async (req, res) => {
-  const { email, name } = req.body;
-  if (!email || !name) return res.status(400).json({ error: "Missing fields" });
+  const { name, email } = req.body;
+  if (!email || !name) return res.status(400).json({ error: "Name and email required" });
 
   try {
     const response = await fetch("https://api.brevo.com/v3/contacts", {
@@ -58,36 +55,36 @@ app.post("/signup", async (req, res) => {
         "api-key": process.env.BREVO_API_KEY,
       },
       body: JSON.stringify({
-        email,
+        email: email,
         attributes: { FIRSTNAME: name },
-        listIds: [Number(process.env.BREVO_SIGNUP_LIST_ID)], // liste différente
+        listIds: [Number(process.env.BREVO_SIGNUP_LIST_ID)], // ← Mets ton vrai ID de liste "Signup"
         updateEnabled: true,
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Brevo API error (signup):", errorData);
+      console.error("Brevo API error:", errorData);
       return res.status(500).json({ error: "Brevo API error" });
     }
 
-    res.json({ message: "✅ Signup contact sent to Brevo." });
+    res.json({ message: "✅ Signup successful." });
   } catch (error) {
-    console.error("Signup error:", error);
+    console.error("Internal server error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Routes HTML
 const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-app.get("/demo", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "demo.html"));
+app.get('/demo', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'demo.html'));
 });
-app.get("/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "signup.html"));
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
 });
 
 app.listen(PORT, () => {
