@@ -42,6 +42,7 @@ app.post("/subscribe", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 // POST /signup
 app.post("/signup", async (req, res) => {
   const { name, email } = req.body;
@@ -57,7 +58,7 @@ app.post("/signup", async (req, res) => {
       body: JSON.stringify({
         email: email,
         attributes: { FIRSTNAME: name },
-        listIds: [Number(process.env.BREVO_SIGNUP_LIST_ID)], // ← Mets ton vrai ID de liste "Signup"
+        listIds: [Number(process.env.BREVO_SIGNUP_LIST_ID)],
         updateEnabled: true,
       }),
     });
@@ -75,18 +76,47 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+// IA : /generate-contract (mock Gemini)
+app.get('/generate-contract', async (req, res) => {
+  const fakeContract = `
+  Service Agreement
+
+  This contract is made between the Freelancer and Client.
+
+  Scope: Design and build the project as agreed.
+
+  Payment: 30% upfront, 70% upon delivery.
+
+  Delivery: 2 weeks after signing.
+
+  Confidentiality: Both parties agree to confidentiality.
+
+  Signature:
+  `;
+  res.json({ contract: fakeContract });
+});
+
+// Signature PDF : /sign-pdf (mock PDF.co)
+app.post('/sign-pdf', async (req, res) => {
+  const signUrl = "https://app.pdf.co/document-sign-link/demo"; // à remplacer plus tard
+  res.json({ signUrl });
+});
+
+// Routes HTML
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-app.get('/demo', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'demo.html'));
+app.get("/demo", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "demo.html"));
+});
+app.get("/signup", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "signup.html"));
+});
+app.get("/contract", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "contract.html"));
 });
 
-app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
-});
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
